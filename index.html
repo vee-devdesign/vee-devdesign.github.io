@@ -1,47 +1,179 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dev Journal</title>
+    <title>Grass GeoNodes Showcase</title>
     <style>
-        body { background: #111; color: #fff; font-family: monospace; padding: 40px; }
-        h1 { color: #00ff66; border-bottom: 2px solid #333; padding-bottom: 10px; }
-        .log-item { background: #1a1a1a; padding: 20px; margin-top: 20px; border-left: 4px solid #00ff66; }
-        .meta { color: #888; font-size: 0.8em; }
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --accent-color: #4caf50;
+            --text-muted: #a0a0a0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            max-width: 800px;
+        }
+        h1 {
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+        }
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+        h2 {
+            color: #fff;
+            margin-top: 0;
+            border-bottom: 2px solid #2d2d2d;
+            padding-bottom: 10px;
+        }
+        .description {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        .media-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        @media (max-width: 768px) {
+            .media-grid { grid-template-columns: 1fr; }
+        }
+        .media-box {
+            background: #151515;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #2d2d2d;
+            display: flex;
+            flex-direction: column;
+        }
+        .media-box span {
+            padding: 8px 12px;
+            font-size: 0.85rem;
+            background: #252525;
+            color: var(--text-muted);
+            font-weight: bold;
+        }
+        img, video {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+        .node-schema {
+            width: 100%;
+            background: #151515;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #2d2d2d;
+        }
+        .node-schema span {
+            padding: 8px 12px;
+            font-size: 0.85rem;
+            background: #252525;
+            color: var(--text-muted);
+            display: block;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
-    <h1>SYSTEM LOG: PRODUCTION READY</h1>
-    <p>A Monolithic Development Log. The countdown has begun.</p>
-    
-    <div class="log-item">
-        <div class="meta">Day 1 | Project: Web Dev</div>
-        <h3>Kernel Deployment and System Boot</h3>
-        <p>Tracking tools are set up: Toggl Track is active, Obsidian is organized, and passwords are stored in Bitwarden. The GitHub Pages repository was set up manually without using any pre-made templates.</p>
-    </div>
-    <div style="margin-top: 30px; text-align: center;">
-        <!-- <img src="images/chair.jpg" alt="Vitra Chair Render" style="max-width: 100%; height: auto; border: 2px solid #333; border-radius: 4px;">-->
-        <h2 style="color: #00ff66; margin-top: 40px; font-size: 1.2em;">
-    </div>
-           <!--  DAY 3 -->
-    <h2 style="color: #00ff66; margin-top: 40px; font-size: 1.2em;">DAY 3 | VISUAL ASSETS: PRODUCTION SHOWCASE</h2>
-    <p style="color: #888; font-size: 0.9em; font-family: monospace; margin-top: -10px;">
-        Proportion correction and production rendering. Comparing Corona Renderer (3ds Max) vs Cycles (Blender).
-    </p>
-    
-    <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px; justify-content: center; align-items: stretch;">
-        <!-- 3ds Max + Corona -->
-        <div style="text-align: center; flex: 1; min-width: 280px; max-width: 480px;">
-            <img src="images/chair_corona.png" alt="Vitra Chair Corona Render" style="width: 100%; height: auto; border: 2px solid #333; border-radius: 4px;transform: scaleX(-1);">
-            <div style="color: #666; font-size: 0.8em; margin-top: 8px; font-family: monospace;">3ds Max / Corona (Artistic Setup)</div>
+
+    <header>
+        <h1>Процедурные Ассеты Травы</h1>
+        <div class="subtitle">Geometry Nodes Portfolio</div>
+        <p style="color: var(--text-muted); margin-top: 15px;">Демонстрация генерации и анимации растительности в Blender с использованием геометрических нод.</p>
+    </header>
+
+    <div class="container">
+
+        <!-- ТРАВА №1 -->
+        <div class="project-card">
+            <h2>Вид 1: Базовый Ассет Травы</h2>
+            <div class="description">
+                Здесь вы можете описать логику работы первой схемы. Например: Процедурное распределение травинок по поверхности с использованием ноды <strong>Instance on Points</strong>. Настроена случайная вариация масштаба (Scale) и поворота (Rotation) для естественного вида.
+            </div>
+            
+            <div class="media-grid">
+                <div class="media-box">
+                    <span>Финальный Рендер</span>
+                    <!-- Замените render1.jpg на имя вашего рендера -->
+                    <img src="render1.jpg" alt="Финальный рендер травы 1" onerror="this.style.display='none'; this.parentNode.innerHTML+='<div style=padding:40px;text-align:center;color:#555>Загрузите render1.jpg</div>'">
+                </div>
+                <div class="media-box">
+                    <span>Анимация (Ветер)</span>
+                    <!-- Замените video1.mp4 на имя вашего видео -->
+                    <video src="video1.mp4" controls loop muted autoplay></video>
+                </div>
+            </div>
+
+            <div class="node-schema">
+                <span>Схема Геонод (Geometry Nodes)</span>
+                <!-- Замените schema1.png на скриншот вашей схемы нод -->
+                <img src="schema1.png" alt="Схема нод 1" onerror="this.style.display='none'; this.parentNode.innerHTML+='<div style=padding:60px;text-align:center;color:#555>Загрузите скриншот схемы schema1.png</div>'">
+            </div>
         </div>
-        
-        <!-- Blender + Cycles  -->
-        <div style="text-align: center; flex: 1; min-width: 280px; max-width: 480px;">
-            <img src="images/chair_cycles.png" alt="Vitra Chair Cycles Render" style="width: 100%; height: auto; border: 2px solid #333; border-radius: 4px; transform: scaleX(-1);">
-            <div style="color: #666; font-size: 0.8em; margin-top: 8px; font-family: monospace;">Blender / Cycles (Studio Isolate - Mirrored)</div>
+
+        <!-- ТРАВА №2 -->
+        <div class="project-card">
+            <h2>Вид 2: Интерактивный Ассет с Цветами</h2>
+            <div class="description">
+                Здесь опишите вторую схему. Например: Усложненная система с добавлением цветов и динамического взаимодействия. Реализовано замятие травы от невидимого объекта (сферы) с помощью вычисления расстояния (нода <strong>Geometry Proximity</strong> или <strong>Distance</strong>) и смещения положения точек.
+            </div>
+            
+            <div class="media-grid">
+                <div class="media-box">
+                    <span>Финальный Рендер</span>
+                    <!-- Замените render2.jpg на имя вашего рендера -->
+                    <img src="render2.jpg" alt="Финальный рендер травы 2" onerror="this.style.display='none'; this.parentNode.innerHTML+='<div style=padding:40px;text-align:center;color:#555>Загрузите render2.jpg</div>'">
+                </div>
+                <div class="media-box">
+                    <span>Анимация (Взаимодействие со сферой)</span>
+                    <!-- Замените video2.mp4 на имя вашего видео -->
+                    <video src="video2.mp4" controls loop muted autoplay></video>
+                </div>
+            </div>
+
+            <div class="node-schema">
+                <span>Схема Геонод (Geometry Nodes)</span>
+                <!-- Замените schema2.png на скриншот вашей схемы нод -->
+                <img src="schema2.png" alt="Схема нод 2" onerror="this.style.display='none'; this.parentNode.innerHTML+='<div style=padding:60px;text-align:center;color:#555>Загрузите скриншот схемы schema2.png</div>'">
+            </div>
         </div>
+
     </div>
 
 </body>
