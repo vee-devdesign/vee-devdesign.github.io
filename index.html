@@ -24,8 +24,6 @@
             align-items: center;
             overflow-x: hidden;
         }
-
-        /* КИНЕМАТОГРАФИЧЕСКАЯ ШАПКА (HERO SECTION) */
         .hero-header {
             position: relative;
             width: 100vw;
@@ -37,7 +35,6 @@
             overflow: hidden;
             border-bottom: 1px solid #222;
         }
-        /* Живое видео на фоне всей шапки */
         .hero-bg-video {
             position: absolute;
             top: 0;
@@ -46,9 +43,9 @@
             height: 100%;
             object-fit: cover;
             z-index: 1;
-            filter: brightness(0.3) blur(2px); /* Притемняем фон для читаемости */
+            filter: brightness(0.3) blur(2px);
+            transition: opacity 0.5s ease;
         }
-        /* Затемнение снизу-вверх для мягкого перехода в сайт */
         .hero-overlay {
             position: absolute;
             bottom: 0;
@@ -58,7 +55,6 @@
             background: linear-gradient(to top, var(--bg-color), transparent);
             z-index: 2;
         }
-        /* Контент внутри шапки */
         .hero-content {
             position: relative;
             z-index: 3;
@@ -79,6 +75,7 @@
             color: #fff;
             font-size: 2.8rem;
             margin: 0 0 10px 0;
+            transition: all 0.3s ease;
         }
         .hero-text .project-type {
             color: var(--accent-color);
@@ -94,7 +91,6 @@
             font-size: 1.1rem;
             margin: 0;
         }
-        /* Главный рендер в шапке */
         .hero-featured-render {
             width: 100%;
             aspect-ratio: 16 / 9;
@@ -108,9 +104,8 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: opacity 0.3s ease;
         }
-
-        /* КАРУСЕЛЬ-МЕНЮ ПРОЕКТОВ (ФИКСИРОВАННАЯ ИЗ-ЗА ШАПКИ) */
         .portfolio-nav {
             position: absolute;
             top: 30px;
@@ -142,8 +137,6 @@
             background: var(--accent-color);
             box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
         }
-
-        /* БЛОК ПОДРОБНОСТЕЙ И НАВОР ОТОВ СНИЗУ */
         .details-container {
             max-width: 1100px;
             width: 100%;
@@ -182,8 +175,6 @@
             object-fit: contain;
             background: #080808;
         }
-
-        /* НАВОРОТЫ / МОДЕРНИЗАЦИЯ */
         .features-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -224,68 +215,149 @@
     </style>
 </head>
 <body>
-
-    <!-- Меню-Карусель (Закреплено поверх шапки) -->
+  
     <nav class="portfolio-nav">
-        <a href="#" class="nav-card active">🌾 Type 1: Basic Grass</a>
-        <a href="#" class="nav-card" style="opacity: 0.4;">🪻 Type 2: Coming Soon</a>
+        <div class="nav-card active" onclick="switchProject('grass1')">🌾 Type 1: Basic Grass</div>
+        <div class="nav-card" onclick="switchProject('grass2')">🪻 Type 2: Interactive Grass</div>
     </nav>
 
-    <!-- КИНЕМАТОГРАФИЧЕСКАЯ ШАПКА -->
+    <!-- cinematic -->
     <div class="hero-header">
-        <!-- ФОНОВОЕ ВИДЕО: Анимация ветра крутится тут -->
-        <video class="hero-bg-video" src="Animation Wind.mp4" autoplay loop muted playsinline></video>
+        <video id="hero-video" class="hero-bg-video" src="Animation Wind.mp4" autoplay loop muted playsinline></video>
         <div class="hero-overlay"></div>
         
         <div class="hero-content">
             <div class="hero-text">
                 <div class="project-type">Geometry Nodes Asset</div>
-                <h1>Procedural Basic Grass</h1>
-                <p>Procedural distribution of blades of grass across a surface using an **Instance on Points** pipeline. Configured random variations in scale, tilt, and custom rotation vectors to achieve a photorealistic organic appearance.</p>
+                <h1 id="project-title">Procedural Basic Grass</h1>
+                <p id="project-desc">Procedural distribution of blades of grass across a surface using an Instance on Points pipeline. Configured random variations in scale, tilt, and custom rotation vectors to achieve a photorealistic organic appearance.</p>
             </div>
-            <!-- ГЛАВНЫЙ ФИНАЛЬНЫЙ РЕНДЕР: На переднем плане -->
             <div class="hero-featured-render">
-                <img src="Final Render1.png" alt="Final Grass Render 1">
+                <img id="hero-render" src="Final Render1.png" alt="Featured Render">
             </div>
         </div>
     </div>
 
-    <!-- ПОДРОБНОСТИ И НАВОРОТЫ (Снизу под шапкой) -->
     <div class="details-container">
         
-        <!-- 1. Главная техническая гордость — Схема нод -->
-        <div class="section-title">Пайплайн и Логика Нод</div>
+        <div class="section-title">Node Logic</div>
         <div class="full-width-box">
-            <div class="box-header">BLENDER GEOMETRY NODES SCHEMA</div>
+            <div class="box-header" id="schema-header">BLENDER GEOMETRY NODES SCHEMA</div>
             <div class="box-content">
-                <!-- Схема нод на всю ширину, теперь ее можно круто рассмотреть! -->
-                <img src="Geometry_Nodes.png" alt="Geometry Nodes Schema">
+                <img id="project-schema" src="Geometry_Nodes.png" alt="Geometry Nodes Schema">
             </div>
         </div>
 
-        <!-- 2. Вариации -->
-        <div class="section-title">Варианты распределения</div>
+        <div class="section-title">Distribution Options</div>
         <div class="full-width-box">
-            <div class="box-header">DISTRIBUTION & FIELD POSSIBILITIES</div>
+            <div class="box-header" id="possibilities-header">DISTRIBUTION & FIELD POSSIBILITIES</div>
             <div class="box-content">
-                <img src="Possibilities_Windy_Grass_field.png" alt="Possibilities Field">
+                <img id="project-possibilities" src="Possibilities_Windy_Grass_field.png" alt="Possibilities Field">
             </div>
         </div>
 
-        <!-- 3. Возможности для наворотов (Масштабирование) -->
-        <div class="section-title">Потенциал модернизации ассета</div>
-        <div class="features-grid">
+    </div>
+
+        <!-- Capabilities (Scalability) -->
+        <div class="section-title">Asset Modernization Potential
+       
+            <div class="feature-card">
+                <h3>Dynamic Blading <span class="badge">Logic</span></h3>
+                <p>The ability to connect texture maps (Weight Paint) to procedurally control grass density without changing the geometry of the base mesh.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Interactive Physics <span class="badge">Geonodes</span></h3>
+                <p>Integrating the Geometry Proximity node to create a dynamic trail (grass compression) behind any moving animated object or character in the scene</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Variation in Coloration <span class="badge">Shading</span></h3>
+                <p>Passing a random instance index (Random Per Island) to the material shader to randomize the shades of green, dryness, and color of the grass tips.</p>
+            </div>
+
+        </div>    
+                                <!-- Changing projects -->
+    <script>
+       
+        const projectsData = {
+            grass1: {
+                title: "Procedural Basic Grass",
+                desc: "Procedural distribution of blades of grass across a surface using an Instance on Points pipeline. Configured random variations in scale, tilt, and custom rotation vectors to achieve a photorealistic organic appearance.",
+                video: "Animation Wind.mp4",
+                render: "Final Render1.png",
+                schema: "Geometry_Nodes.png",
+                possibilities: "Possibilities_Windy_Grass_field.png"
+            },
+            grass2: {
+                title: "Interactive Grass & Flowers",
+                desc: "Advanced vegetation scattering system with dynamic interaction logic. Features a custom proximity-based deformer using Geometry Proximity nodes, pushing grass blades away when an effector sphere passes through.",
+                video: "video2.mp4",
+                render: "render2.jpg",
+                schema: "schema2.png",
+                possibilities: "render2.jpg"
+            }
+        };
+
+        function switchProject(projectId) {
+            const data = projectsData[projectId];
+            if (!data) return;
+
+            // 1. Editing Texts
+            document.getElementById('project-title').innerText = data.title;
+            document.getElementById('project-desc').innerText = data.desc;
+
+            // 2. Replace videos and images with new files
+            document.getElementById('hero-video').src = data.video;
+            document.getElementById('hero-render').src = data.render;
+            document.getElementById('project-schema').src = data.schema;
+            document.getElementById('project-possibilities').src = data.possibilities;
+
+            // Be sure to restart the video after changing the source
+            document.getElementById('hero-video').load();
+            document.getElementById('hero-video').play();
+
+            // 3. Toggle the style of the active menu button
+            document.querySelectorAll('.nav-card').forEach(card => card.classList.remove('active'));
+            event.target.classList.add('active');
+        };
+    </script>
+</body>
+    <!-- FOOTER TMG / GDPR) -->
+<footer style="background-color: #0c0c0c; border-top: 1px solid #222; width: 100vw; padding: 50px 20px; margin-top: 80px; box-sizing: border-box; font-family: sans-serif;">
+    <div style="max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 30px;">
             
-            <div class="feature-card">
-                <h3>Динамический блейдинг <span class="badge">Логика</span></h3>
-                <p>Возможность подключения текстурных карт (Weight Paint) для процедурного контроля густоты посадки травы без изменения геометрии базовой сетки.</p>
+        <div style="width: 100%; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 40px;">
+                
+            <!-- Impressum -->
+            <div style="flex: 1 1 300px; color: #666; font-size: 0.85rem; line-height: 1.6; text-align: left;">
+                <strong style="color: #999; display: block; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Impressum</strong>
+                Angaben gemäß § 5 TMG:<br>
+                Victoriia Yefremenko<br>
+                Bahnhofstrasse 3A<br>
+                67806 Rockenhausen, Germany<br>
+                Kontakt:<span style="color:#999; font-size: 0.82rem; line-height: 1.6;"> vee.dev.design@gmail.com</span><br>
+            </div>
+        
+
+            <!-- Datenschutz -->
+            <div style="flex: 2 1 450px; color: #666; font-size: 0.82rem; line-height: 1.6; text-align: left; border-left: 1px solid #222; padding-left: 20px;">
+                <strong style="color: #999; display: block; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Datenschutzerklärung</strong>
+                Diese Webseite ist eine rein private, nicht-kommerzielle Portfolio-Seite (gemäß § 18 MStV).<br> 
+                Es werden keine personenbezogenen Daten erhoben, keine Cookies gesetzt<br>
+                und keine Tracking-Tools (wie Google Analytics) verwendet.   <br>
+                The site is hosted via GitHub Pages. When you access the site,<br>
+                GitHub’s servers may automatically record standard log files  <br>
+                (IP address), which is technically necessary for the site to function.<br>
+                The author’s personal data is protected in accordance with DSGVO.<br>
             </div>
 
-            <div class="feature-card">
-                <h3>Интерактивная физика <span class="badge">Геоноды</span></h3>
-                <p>Интеграция ноды Geometry Proximity для создания динамического следа (приминания травы) за любым движущимся анимированным объектом сцены или персонажем.</p>
+            <!-- Copyright -->
+            <div style="width: 100%; height: 1px; background-color: #222; margin-top: 10px;"></div>
+            <div style="color: #444; font-size: 0.75rem;">
+                &copy; 2026 vee-devdesign. All rights reserved.
             </div>
-
-            <div class="feature-card">
-                <h3>Цветовая вариативность <span class="badge">Шейдинг</span></h3>
-                <p>Передача случайного индекса инстанса (Random Per Island) в шейдер материала для рандомизации оттенков зелени, сухости и цвета кончиков травинок.</p>
+        </div>
+    </div>    
+        
+</footer>
