@@ -3,170 +3,289 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grass GeoNodes Showcase</title>
-        <style>
+    <title>3D & Procedural Artist Portfolio</title>
+    <style>
         :root {
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
+            --bg-color: #0c0c0c;
+            --card-bg: #141414;
             --text-color: #e0e0e0;
             --accent-color: #4caf50;
-            --text-muted: #a0a0a0;
+            --text-muted: #888888;
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
-            padding: 40px 20px;
+            padding: 0;
             display: flex;
+
             flex-direction: column;
             align-items: center;
+            overflow-x: hidden;
         }
-        header {
-            text-align: center;
-            margin-bottom: 60px;
-            max-width: 800px;
+
+        /* КИНЕМАТОГРАФИЧЕСКАЯ ШАПКА (HERO SECTION) */
+        .hero-header {
+            position: relative;
+            width: 100vw;
+            height: 75vh; /* Занимает 75% высоты экрана */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            overflow: hidden;
+            border-bottom: 1px solid #222;
         }
-        h1 {
+        /* Живое видео на фоне всей шапки */
+        .hero-bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            filter: brightness(0.3) blur(2px); /* Притемняем фон для читаемости */
+        }
+        /* Затемнение снизу-вверх для мягкого перехода в сайт */
+        .hero-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to top, var(--bg-color), transparent);
+            z-index: 2;
+        }
+        /* Контент внутри шапки */
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 1100px;
+            width: 100%;
+            padding: 0 40px 40px 40px;
+            box-sizing: border-box;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        @media (max-width: 850px) {
+            .hero-header { height: auto; padding-top: 140px; }
+            .hero-content { grid-template-columns: 1fr; text-align: center; }
+        }
+        .hero-text h1 {
             color: #fff;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 2.8rem;
+            margin: 0 0 10px 0;
         }
-        .subtitle {
+        .hero-text .project-type {
             color: var(--accent-color);
-            font-size: 1.2rem;
+            font-size: 0.9rem;
             font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
         }
-        .container {
-            max-width: 1000px;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 60px;
-        }
-        .project-card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-        }
-        h2 {
-            color: #fff;
-            margin-top: 0;
-            border-bottom: 2px solid #2d2d2d;
-            padding-bottom: 10px;
-        }
-        .description {
-            color: var(--text-muted);
+        .hero-text p {
+            color: #ccc;
             line-height: 1.6;
-            margin-bottom: 25px;
+            font-size: 1.1rem;
+            margin: 0;
         }
-        .media-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 25px;
-        }
-        @media (max-width: 768px) {
-            .media-grid { grid-template-columns: 1fr; }
-        }
-        .media-box {
-            background: #151515;
+        /* Главный рендер в шапке */
+        .hero-featured-render {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
             border-radius: 8px;
             overflow: hidden;
-            border: 1px solid #2d2d2d;
+            border: 1px solid #333;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+        .hero-featured-render img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* КАРУСЕЛЬ-МЕНЮ ПРОЕКТОВ (ФИКСИРОВАННАЯ ИЗ-ЗА ШАПКИ) */
+        .portfolio-nav {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
-            flex-direction: column;
+            gap: 15px;
+            z-index: 10;
+            background: rgba(10, 10, 10, 0.6);
+            padding: 8px;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.05);
         }
-        .media-box span {
-            padding: 8px 12px;
-            font-size: 0.85rem;
-            background: #252525;
-            color: var(--text-muted);
+        .nav-card {
+            background: transparent;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
             font-weight: bold;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: 1px solid transparent;
         }
-        img, video {
+        .nav-card:hover, .nav-card.active {
+            color: #fff;
+            background: var(--accent-color);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        /* БЛОК ПОДРОБНОСТЕЙ И НАВОР ОТОВ СНИЗУ */
+        .details-container {
+            max-width: 1100px;
+            width: 100%;
+            padding: 60px 20px;
+            box-sizing: border-box;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .full-width-box {
+            background: var(--card-bg);
+            border: 1px solid #222;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 50px;
+        }
+        .box-header {
+            background: #1a1a1a;
+            padding: 12px 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            border-bottom: 1px solid #222;
+        }
+        .box-content img {
             width: 100%;
             height: auto;
             display: block;
-            object-fit: cover;
+            object-fit: contain;
+            background: #080808;
         }
-        .node-schema {
-            width: 100%;
-            background: #151515;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid #2d2d2d;
+
+        /* НАВОРОТЫ / МОДЕРНИЗАЦИЯ */
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
         }
-        .node-schema span {
-            padding: 8px 12px;
-            font-size: 0.85rem;
-            background: #252525;
+        @media (max-width: 750px) { .features-grid { grid-template-columns: 1fr; } }
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid #222;
+            padding: 25px;
+            border-radius: 12px;
+            transition: border-color 0.3s ease;
+        }
+        .feature-card:hover {
+            border-color: #333;
+        }
+        .feature-card h3 {
+            margin: 0 0 10px 0;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .feature-card p {
+            margin: 0;
             color: var(--text-muted);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        .badge {
+            background: #192519;
+            color: var(--accent-color);
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 4px;
             font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Procedural Assets Grass</h1>
-        <div class="subtitle">Geometry Nodes Portfolio</div>
-        <p style="color: var(--text-muted); margin-top: 15px;">A demonstration of how to generate and animate vegetation in Blender using geometry nodes.</p>
-    </header>
-    <div class="container">
-<!-- Grass №1 -->
-        <div class="project-card">
-            <h2>Type 1: Basic Grass Asset</h2>
-            <div class="description">
-                Procedural distribution of blades of grass across a surface using a node <strong>Instance on Points</strong>. Random variations in scale and rotation have been configured to create a natural look.
-            </div>
-            
-            <div class="media-grid">
-                <div class="media-box" style="position: relative; min-height: 250px;">
-                    <span>Final Render</span>
-                    <img src="images/FinalRender1.png" alt="Final Grass Render 1" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <!-- Placeholder -->
-                    <div class="placeholder" style="display:none; position:absolute; top:40px; bottom:0; left:0; right:0; flex-direction:column; align-items:center; justify-content:center; color:#555; font-size:0.9rem;">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:10px;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-                        Final Render1.png
-                    </div>
-                </div>
-                
-                <div class="media-box" style="position: relative; min-height: 250px;">
-                    <span>Animation Wind</span>
-                    <video src="images/AnimationWind.mp4" controls loop muted autoplay style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"></video>
-                    <!-- Placeholder -->
-                    <div class="placeholder" style="display:none; position:absolute; top:40px; bottom:0; left:0; right:0; flex-direction:column; align-items:center; justify-content:center; color:#555; font-size:0.9rem;">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:10px;"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-                      Animation Wind.mp4
-                    </div>
-                </div>
-            </div>
+    <!-- Меню-Карусель (Закреплено поверх шапки) -->
+    <nav class="portfolio-nav">
+        <a href="#" class="nav-card active">🌾 Type 1: Basic Grass</a>
+        <a href="#" class="nav-card" style="opacity: 0.4;">🪻 Type 2: Coming Soon</a>
+    </nav>
 
-            <div class="node-schema" style="position: relative; min-height: 250px;">
-                    <span>Geometry Nodes</span>
-                    <img src="images/Geometry_Nodes_Windy_Grass_field.png" alt="Geometry_Nodes" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <!-- Placeholder -->
-                    <div class="placeholder" style="display:none; position:absolute; top:40px; bottom:0; left:0; right:0; flex-direction:column; align-items:center; justify-content:center; color:#555; font-size:0.9rem;">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:10px;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-                        Geometry_Nodes.png
-                    </div>
+    <!-- КИНЕМАТОГРАФИЧЕСКАЯ ШАПКА -->
+    <div class="hero-header">
+        <!-- ФОНОВОЕ ВИДЕО: Анимация ветра крутится тут -->
+        <video class="hero-bg-video" src="Animation Wind.mp4" autoplay loop muted playsinline></video>
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="project-type">Geometry Nodes Asset</div>
+                <h1>Procedural Basic Grass</h1>
+                <p>Procedural distribution of blades of grass across a surface using an **Instance on Points** pipeline. Configured random variations in scale, tilt, and custom rotation vectors to achieve a photorealistic organic appearance.</p>
             </div>
-            
-            <div class="node-schema" style="position: relative; min-height: 250px;">
-                    <span>Possibilities</span>
-                    <img src="images/Possibilities_Windy_Grass_field.png" alt="Possibilities_Windy_Grass" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <!-- Placeholder -->
-                    <div class="placeholder" style="display:none; position:absolute; top:40px; bottom:0; left:0; right:0; flex-direction:column; align-items:center; justify-content:center; color:#555; font-size:0.9rem;">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:10px;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-                        Possibilities_Windy_Grass_field.png
-                    </div>
+            <!-- ГЛАВНЫЙ ФИНАЛЬНЫЙ РЕНДЕР: На переднем плане -->
+            <div class="hero-featured-render">
+                <img src="Final Render1.png" alt="Final Grass Render 1">
             </div>
         </div>
-       
     </div>
-</body>
-</html>
+
+    <!-- ПОДРОБНОСТИ И НАВОРОТЫ (Снизу под шапкой) -->
+    <div class="details-container">
+        
+        <!-- 1. Главная техническая гордость — Схема нод -->
+        <div class="section-title">Пайплайн и Логика Нод</div>
+        <div class="full-width-box">
+            <div class="box-header">BLENDER GEOMETRY NODES SCHEMA</div>
+            <div class="box-content">
+                <!-- Схема нод на всю ширину, теперь ее можно круто рассмотреть! -->
+                <img src="Geometry_Nodes.png" alt="Geometry Nodes Schema">
+            </div>
+        </div>
+
+        <!-- 2. Вариации -->
+        <div class="section-title">Варианты распределения</div>
+        <div class="full-width-box">
+            <div class="box-header">DISTRIBUTION & FIELD POSSIBILITIES</div>
+            <div class="box-content">
+                <img src="Possibilities_Windy_Grass_field.png" alt="Possibilities Field">
+            </div>
+        </div>
+
+        <!-- 3. Возможности для наворотов (Масштабирование) -->
+        <div class="section-title">Потенциал модернизации ассета</div>
+        <div class="features-grid">
+            
+            <div class="feature-card">
+                <h3>Динамический блейдинг <span class="badge">Логика</span></h3>
+                <p>Возможность подключения текстурных карт (Weight Paint) для процедурного контроля густоты посадки травы без изменения геометрии базовой сетки.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Интерактивная физика <span class="badge">Геоноды</span></h3>
+                <p>Интеграция ноды Geometry Proximity для создания динамического следа (приминания травы) за любым движущимся анимированным объектом сцены или персонажем.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Цветовая вариативность <span class="badge">Шейдинг</span></h3>
+                <p>Передача случайного индекса инстанса (Random Per Island) в шейдер материала для рандомизации оттенков зелени, сухости и цвета кончиков травинок.</p>
