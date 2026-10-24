@@ -217,9 +217,10 @@
 <body>
   
     <nav class="portfolio-nav">
-        <div class="nav-card active" onclick="switchProject('grass1', this)">🌾 Type 1: Basic Grass</div>
-        <div class="nav-card" onclick="switchProject('grass2', this)">🪻 Type 2: Interactive Grass</div>
+        <div id="btn-grass1" class="nav-card active" onclick="switchProject('grass1')">🌾 Type 1: Basic Grass</div>
+        <div id="btn-grass2" class="nav-card" onclick="switchProject('grass2')">🪻 Type 2: Interactive Grass</div>
     </nav>
+
 
     <!-- cinematic -->
     <div class="hero-header">
@@ -304,47 +305,48 @@
             
         };
 
-   function switchProject(projectId, clickedElement) {
-    const data = projectsData[projectId];
-    if (!data) return;
+   function switchProject(projectId) {
+        const data = projectsData[projectId];
+        if (!data) return;
 
-    // 1. Обновление текстов в шапке
-    document.getElementById('project-title').innerText = data.title;
-    document.getElementById('project-desc').innerText = data.desc;
+        // 1. Меняем тексты
+        document.getElementById('project-title').innerText = data.title;
+        document.getElementById('project-desc').innerText = data.desc;
+        document.getElementById('shader-desc').innerText = data.shaderDesc;
+        document.getElementById('dist-desc').innerText = data.distDesc;
 
-    // 2. Замена картинок и схем
-    document.getElementById('hero-render').src = data.render;
-    document.getElementById('project-schema').src = data.schema;
-    document.getElementById('project-possibilities').src = data.possibilities;
+        // 2. Меняем картинки и схемы
+        document.getElementById('hero-render').src = data.render;
+        document.getElementById('project-schema').src = data.schema;
+        document.getElementById('project-possibilities').src = data.possibilities;
 
-    // 3. Обновление текстовых подписей ПОД схемами нод
-    document.getElementById('shader-desc').innerText = data.shaderDesc;
-    document.getElementById('dist-desc').innerText = data.distDesc;
+        // 3. Обновляем верхнее видео
+        const heroVideo = document.getElementById('hero-video');
+        if (heroVideo) {
+            heroVideo.src = data.video;
+            heroVideo.load();
+            heroVideo.play();
+        }
 
-    // 4. Перезапуск верхнего фонового видео
-    const heroVideo = document.getElementById('hero-video');
-    if (heroVideo) {
-        heroVideo.src = data.video;
-        heroVideo.load();
-        heroVideo.play();
+        // 4. Обновляем нижнее видео рендера
+        const finalVideo = document.getElementById('final-video');
+        if (finalVideo) {
+            finalVideo.src = data.finalVideo;
+            finalVideo.load();
+            finalVideo.play();
+        }
+
+        // 5. Прямое переключение цвета кнопок меню по их ID
+        document.getElementById('btn-grass1').classList.remove('active');
+        document.getElementById('btn-grass2').classList.remove('active');
+        
+        if (projectId === 'grass1') {
+            document.getElementById('btn-grass1').classList.add('active');
+        } else if (projectId === 'grass2') {
+            document.getElementById('btn-grass2').classList.add('active');
+        }
     }
-
-    // 5. Перезапуск нижнего видео рендера
-    const finalVideo = document.getElementById('final-video');
-    if (finalVideo) {
-        finalVideo.src = data.finalVideo;
-        finalVideo.load();
-        finalVideo.play();
-    }
-
-    // 6. Переключение стиля активной кнопки меню (БЕЗОПАСНЫЙ ВАРИАНТ)
-    document.querySelectorAll('.nav-card').forEach(card => card.classList.remove('active'));
-    if (clickedElement) {
-        clickedElement.classList.add('active');
-    }
-}
-
-    </script>
+</script>
 </body>
     <!-- FOOTER TMG / GDPR) -->
 <footer style="background-color: #0c0c0c; border-top: 1px solid #222; width: 100vw; padding: 50px 20px; margin-top: 80px; box-sizing: border-box; font-family: sans-serif;">
