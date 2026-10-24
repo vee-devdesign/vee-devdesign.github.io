@@ -329,22 +329,7 @@
         document.getElementById('final-video').load();
         document.getElementById('final-video').play();
 
-        // 3. Обновляем верхнее видео
-        const heroVideo = document.getElementById('hero-video');
-        if (heroVideo) {
-            heroVideo.src = data.video;
-            heroVideo.load();
-            heroVideo.play();
-        }
-
-        // 4. Обновляем нижнее видео рендера
-        const finalVideo = document.getElementById('final-video');
-        if (finalVideo) {
-            finalVideo.src = data.finalVideo;
-            finalVideo.load();
-            finalVideo.play();
-        }
-
+       
         // 5. Прямое переключение цвета кнопок меню по их ID
         document.getElementById('btn-grass1').classList.remove('active');
         document.getElementById('btn-grass2').classList.remove('active');
