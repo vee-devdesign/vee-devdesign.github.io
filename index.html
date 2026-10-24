@@ -269,33 +269,13 @@
         <div class="section-title">Final render</div>
         <div class="full-width-box">
             <div class="hero-header">
-                <video id="hero-video" src="images/Animation_Wind_Windy_Grass_field.mp4" autoplay loop muted playsinline></video>
+                <video id="final-video" src="images/Animation_Wind_Windy_Grass_field.mp4" autoplay loop muted playsinline></video>
                 
                 
             </div>
         </div>
         </div>
-      <!-- Capabilities (Scalability) 
-        <div class="section-title">Asset Modernization Potential
-       
-            <div class="feature-card">
-                <h3>Dynamic Blading <span class="badge">Logic</span></h3>
-                <p>The ability to connect texture maps (Weight Paint) to procedurally control grass density without changing the geometry of the base mesh.</p>
-            </div>
-
-            <div class="feature-card">
-                <h3>Interactive Physics <span class="badge">Geonodes</span></h3>
-                <p>Integrating the Geometry Proximity node to create a dynamic trail (grass compression) behind any moving animated object or character in the scene</p>
-            </div>
-
-            <div class="feature-card">
-                <h3>Variation in Coloration <span class="badge">Shading</span></h3>
-                <p>Passing a random instance index (Random Per Island) to the material shader to randomize the shades of green, dryness, and color of the grass tips.</p>
-            </div>
-
-        </div> 
-          -->  
-                                <!-- Changing projects -->
+     
     <script>
        
         const projectsData = {
@@ -338,20 +318,18 @@
             // 2. Replace videos with new files
             document.getElementById('hero-video').src = data.video;
            
-            // Be sure to restart the video after changing the source
+            // 3. Обновляем верхнее фоновое видео (вы уже это сделали!)
+            document.getElementById('hero-video').src = data.video;
             document.getElementById('hero-video').load();
             document.getElementById('hero-video').play();
 
-            // 3. Toggle the style of the active menu button
-            document.querySelectorAll('.nav-card').forEach(card => card.classList.remove('active'));
-            event.target.classList.add('active');
-
-            // --- ТОТ САМЫЙ ШАГ 3 (Обновление ваших новых подписей) ---
-            document.getElementById('shader-desc').innerHTML = data.shaderDesc;
-            document.getElementById('dist-desc').innerHTML = data.distDesc;
+            // 4. Обновляем нижнее видео рендера (теперь оно точно найдет цель)
+            document.getElementById('final-video').src = data.finalVideo;
+            document.getElementById('final-video').load();
+            document.getElementById('final-video').play();
 
             // Обновление двух видеоплееров (в шапке и внизу страницы)
-            const topVideo = document.getElementById('hero-video');
+            const topVideo = document.getElementById('final-video');
             if (topVideo) {
                 topVideo.src = data.video;
                 topVideo.load();
