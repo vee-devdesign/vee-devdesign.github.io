@@ -279,6 +279,7 @@
     <script>
        
      const projectsData = {
+         
         grass1: {
             title: "Procedural Basic Grass",
             desc: "Procedural distribution of blades of grass across a surface using an Instance on Points pipeline. Configured random variations in scale, tilt, and custom rotation vectors to achieve a photorealistic organic appearance.",
@@ -324,18 +325,10 @@
             document.querySelectorAll('.nav-card').forEach(card => card.classList.remove('active'));
             event.target.classList.add('active');
  
-             document.getElementById('shader-desc').innerHTML = data.shaderDesc;
-        document.getElementById('dist-desc').innerHTML = data.distDesc;
+            document.getElementById('shader-desc').innerHTML = data.shaderDesc;
+            document.getElementById('dist-desc').innerHTML = data.distDesc;
 
-        // Обновление двух видеоплееров (в шапке и внизу страницы)
-        const topVideo = document.getElementById('hero-video');
-        if (topVideo) {
-            topVideo.src = data.video;
-            topVideo.load();
-            topVideo.play();
-        }
-
-             // 4. Обновляем нижнее видео рендера
+        // 4. Обновляем нижнее видео рендера
         const finalVideo = document.getElementById('final-video');
         if (finalVideo) {
             finalVideo.src = data.finalVideo;
@@ -343,12 +336,12 @@
             finalVideo.play();
         }
             
-     // Кнопки навигации
-        document.querySelectorAll('.nav-card').forEach(card => card.classList.remove('active'));
-        if (event && event.target) {
-            event.target.classList.add('active');
+         // Кнопки навигации
+            document.querySelectorAll('.nav-card').forEach(card => card.classList.remove('active'));
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
         }
-    }
         };
    
     </script>
