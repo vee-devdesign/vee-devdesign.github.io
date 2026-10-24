@@ -275,30 +275,9 @@
             </div>
         </div>
         </div>
-      <!-- Capabilities (Scalability) 
-        <div class="section-title">Asset Modernization Potential
-       
-            <div class="feature-card">
-                <h3>Dynamic Blading <span class="badge">Logic</span></h3>
-                <p>The ability to connect texture maps (Weight Paint) to procedurally control grass density without changing the geometry of the base mesh.</p>
-            </div>
-
-            <div class="feature-card">
-                <h3>Interactive Physics <span class="badge">Geonodes</span></h3>
-                <p>Integrating the Geometry Proximity node to create a dynamic trail (grass compression) behind any moving animated object or character in the scene</p>
-            </div>
-
-            <div class="feature-card">
-                <h3>Variation in Coloration <span class="badge">Shading</span></h3>
-                <p>Passing a random instance index (Random Per Island) to the material shader to randomize the shades of green, dryness, and color of the grass tips.</p>
-            </div>
-
-        </div> 
-          -->  
-                                <!-- Changing projects -->
-    <script>
-       
-     const projectsData = {
+    
+     <script>
+    const projectsData = {
         grass1: {
             title: "Procedural Basic Grass",
             desc: "Procedural distribution of blades of grass across a surface using an Instance on Points pipeline. Configured random variations in scale, tilt, and custom rotation vectors to achieve a photorealistic organic appearance.",
@@ -327,14 +306,10 @@
             const data = projectsData[projectId];
             if (!data) return;
 
-            // 1. Editing Texts
             document.getElementById('project-title').innerText = data.title;
             document.getElementById('project-desc').innerText = data.desc;
             document.getElementById('hero-render').src = data.render;
 
-            // 2. Replace videos and images with new files
-            document.getElementById('hero-video').src = data.video;
-            
             document.getElementById('project-schema').src = data.schema;
             document.getElementById('project-possibilities').src = data.possibilities;
 
