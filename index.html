@@ -355,6 +355,14 @@
             topVideo.play();
         }
 
+             // 4. Обновляем нижнее видео рендера
+        const finalVideo = document.getElementById('final-video');
+        if (finalVideo) {
+            finalVideo.src = data.finalVideo;
+            finalVideo.load();
+            finalVideo.play();
+        }
+
         // Кнопки навигации
         document.querySelectorAll('.nav-card').forEach(card => card.classList.remove('active'));
         if (event && event.target) {
