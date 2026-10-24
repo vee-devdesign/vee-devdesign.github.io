@@ -277,8 +277,6 @@
 
      
     <script>
-       
-      
         const projectsData = {
             grass1: {
                 title: "Procedural Basic Grass",
@@ -304,48 +302,52 @@
             }
         };
 
-
         function switchProject(projectId) {
-                const data = projectsData[projectId];
-                if (!data) return;
+        const data = projectsData[projectId];
+        if (!data) return;
 
-                // 1. Меняем текстовые подписи и заголовки
-                document.getElementById('project-title').innerText = data.title;
-                document.getElementById('project-desc').innerText = data.desc;
-                document.getElementById('shader-desc').innerText = data.shaderDesc;
-                document.getElementById('dist-desc').innerText = data.distDesc;
+        // 1. Меняем текстовые подписи и заголовки
+        if(document.getElementById('project-title')) document.getElementById('project-title').innerText = data.title;
+        if(document.getElementById('project-desc')) document.getElementById('project-desc').innerText = data.desc;
+        if(document.getElementById('shader-desc')) document.getElementById('shader-desc').innerText = data.shaderDesc;
+        if(document.getElementById('dist-desc')) document.getElementById('dist-desc').innerText = data.distDesc;
 
-                // 2. Меняем статичные картинки и схемы нод
-                document.getElementById('hero-render').src = data.render;
-                document.getElementById('project-schema').src = data.schema;
-                document.getElementById('project-possibilities').src = data.possibilities;
+        // 2. Меняем статичные картинки и схемы нод
+        if(document.getElementById('hero-render')) document.getElementById('hero-render').src = data.render;
+        if(document.getElementById('project-schema')) document.getElementById('project-schema').src = data.schema;
+        if(document.getElementById('project-possibilities')) document.getElementById('project-possibilities').src = data.possibilities;
 
-                // 3. Обновляем верхнее фоновое видео (с проверкой на существование)
-                const heroVideo = document.getElementById('hero-video');
-                if (heroVideo) {
-                    heroVideo.src = data.video;
-                    heroVideo.load();
-                    heroVideo.play();
-                }
+        // 3. Обновляем верхнее фоновое видео
+        const heroVideo = document.getElementById('hero-video');
+        if (heroVideo) {
+            heroVideo.src = data.video;
+            heroVideo.load();
+            heroVideo.play();
+        }
 
-                // 4. Обновляем нижнее видео рендера (с проверкой на существование)
-                const finalVideo = document.getElementById('final-video');
-                if (finalVideo) {
-                    finalVideo.src = data.finalVideo;
-                    finalVideo.load();
-                    finalVideo.play();
-                }
+        // 4. Обновляем нижнее видео рендера
+        const finalVideo = document.getElementById('final-video');
+        if (finalVideo) {
+            finalVideo.src = data.finalVideo;
+            finalVideo.load();
+            finalVideo.play();
+        }
 
-                // 5. Переключаем подсветку кнопок в меню карусели
-                document.getElementById('btn-grass1').classList.remove('active');
-                document.getElementById('btn-grass2').classList.remove('active');
-                
-                if (projectId === 'grass1') {
-                    document.getElementById('btn-grass1').classList.add('active');
-                } else if (projectId === 'grass2') {
-                    document.getElementById('btn-grass2').classList.add('active');
-                }
+        // 5. Переключаем подсветку кнопок в меню по их жестким ID
+        const btn1 = document.getElementById('btn-grass1');
+        const btn2 = document.getElementById('btn-grass2');
+        
+        if (btn1 && btn2) {
+            btn1.classList.remove('active');
+            btn2.classList.remove('active');
+            
+            if (projectId === 'grass1') {
+                btn1.classList.add('active');
+            } else if (projectId === 'grass2') {
+                btn2.classList.add('active');
             }
+        }
+    }
 </script>
 
 </body>
