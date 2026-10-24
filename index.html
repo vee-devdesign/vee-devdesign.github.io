@@ -217,9 +217,10 @@
 <body>
   
     <nav class="portfolio-nav">
-        <div class="nav-card active" onclick="switchProject('grass1')">🌾 Type 1: Basic Grass</div>
-        <div class="nav-card" onclick="switchProject('grass2')">🪻 Type 2: Interactive Grass</div>
+        <div class="nav-card active" onclick="switchProject('grass1', this)">🌾 Type 1: Basic Grass</div>
+        <div class="nav-card" onclick="switchProject('grass2', this)">🪻 Type 2: Interactive Grass</div>
     </nav>
+
 
     <!-- cinematic -->
     <div class="hero-header">
@@ -318,23 +319,32 @@
             document.getElementById('project-possibilities').src = data.possibilities;
 
             // Be sure to restart the video after changing the source
-            document.getElementById('hero-video').load();
-            document.getElementById('hero-video').play();
+            // document.getElementById('hero-video').load();
+            // document.getElementById('hero-video').play();
 
             // 3. Toggle the style of the active menu button
-            document.querySelectorAll('.nav-card').forEach(card => card.classList.remove('active'));
-            event.target.classList.add('active');
+            // document.querySelectorAll('.nav-card').forEach(card => card.classList.remove('active'));
+            // event.target.classList.add('active');
  
-             document.getElementById('shader-desc').innerHTML = data.shaderDesc;
-        document.getElementById('dist-desc').innerHTML = data.distDesc;
+            // 4. Updating Text Captions BELOW Node Diagrams
+            document.getElementById('shader-desc').innerHTML = data.shaderDesc;
+            document.getElementById('dist-desc').innerHTML = data.distDesc;
 
-        // Обновление двух видеоплееров (в шапке и внизу страницы)
-        const topVideo = document.getElementById('hero-video');
-        if (topVideo) {
-            topVideo.src = data.video;
-            topVideo.load();
-            topVideo.play();
-        }
+            // Обновление двух видеоплееров (в шапке и внизу страницы)
+            const topVideo = document.getElementById('hero-video');
+            if (topVideo) {
+              topVideo.src = data.video;
+              topVideo.load();
+              topVideo.play();
+            }
+            // 5. Перезапуск нижнего видео рендера
+            const finalVideo = document.getElementById('final-video');
+            if (finalVideo) {
+                finalVideo.src = data.finalVideo;
+                finalVideo.load();
+                finalVideo.play();
+            }
+
 
         // Кнопки навигации
         document.querySelectorAll('.nav-card').forEach(card => card.classList.remove('active'));
