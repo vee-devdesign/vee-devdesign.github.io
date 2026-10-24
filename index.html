@@ -298,57 +298,69 @@
                                 <!-- Changing projects -->
     <script>
        
-        const projectsData = {
-            grass1: {
-                title: "Procedural Basic Grass",
-                desc: "Procedural distribution of blades of grass across a surface using an Instance on Points pipeline. Configured random variations in scale, tilt, and custom rotation vectors to achieve a photorealistic organic appearance.",
-                video: "images/Animation_Wind_Windy_Grass_field.mp4",
-                render: "images/Final_Render_Windy_Grass_field.png",
-                schema: "images/Geometry_Nodes_Windy_Grass_field.png",
-                possibilities: "images/Possibilities_Windy_Grass_field.png"
-                shaderDesc: "The wind effect is created in the Shader Editor...",
-                distDesc: "This is the “lightest” wind...",
-                finalVideo: "images/Animation_Wind_Windy_Grass_field.mp4"
+     const projectsData = {
+        grass1: {
+            title: "Procedural Basic Grass",
+            desc: "Procedural distribution of blades of grass across a surface using an Instance on Points pipeline. Configured random variations in scale, tilt, and custom rotation vectors to achieve a photorealistic organic appearance.",
+            video: "images/Animation_Wind_Windy_Grass_field.mp4",
+            render: "images/Final_Render_Windy_Grass_field.png",
+            schema: "images/Geometry_Nodes_Windy_Grass_field.png",
+            possibilities: "images/Possibilities_Windy_Grass_field.png",
+            shaderDesc: "The wind effect is created in the Shader Editor using a `Noise Texture`, which is moved along one of the axes using a `Value` node (via `#frame`) and shifts the coordinates and normals of the blades of grass.",
+            distDesc: "This is the \"lightest\" wind. It \"works instantly in Viewport\", doesn't require physics baking, and is ideal for huge fields (backgrounds).",
+            finalVideo: "images/Animation_Wind_Windy_Grass_field.mp4"
             },
-            grass2: {
-                title: "Interactive Grass & Flowers",
-                desc: "Advanced vegetation scattering system with dynamic interaction logic. Features a custom proximity-based deformer using Geometry Proximity nodes, pushing grass blades away when an effector sphere passes through.",
-                video: "images/Animation_Wind_Art_Directable_Wind.mp4",
-                render: "images/Final_Render_Art_Directable_Wind.png",
-                schema: "images/Geometry_Nodes_Art_Directable_Wind.png",
-                possibilities: "images/Possibil_Art_Directable_Wind.png"
-                shaderDesc: "The wind effect is created in the Shader Editor...",
-                distDesc: "This is the “lightest” wind...",
-                finalVideo: "images/Animation_Wind_Art_Directable_Wind.mp4"
-            }
-        };
+        grass2: {
+            title: "Interactive Grass & Flowers",
+            desc: "Advanced vegetation scattering system with dynamic interaction logic. Features a custom proximity-based deformer using Geometry Proximity nodes, pushing grass blades away when an effector sphere passes through.",
+            video: "images/Animation_Wind_Art_Directable_Wind.mp4",
+            render: "images/Final_Render_Art_Directable_Wind.png",
+            schema: "images/Geometry_Nodes_Art_Directable_Wind.png",
+            possibilities: "images/Possibil_Art_Directable_Wind.png",
+            shaderDesc: "The wind effect here is art-directable and interactively reacts to a custom sphere controller. It calculates bounding distance to bend blades dynamically.",
+            distDesc: "This setup provides heavy wind options, designed for high-fidelity shots and interactive close-ups where precise field control is required.",
+            finalVideo: "images/Animation_Wind_Art_Directable_Wind.mp4"
+            },
 
-        function switchProject(projectId) {
+            function switchProject(projectId) {
+
             const data = projectsData[projectId];
             if (!data) return;
 
             // 1. Editing Texts
             document.getElementById('project-title').innerText = data.title;
             document.getElementById('project-desc').innerText = data.desc;
+            document.getElementById('hero-render').src = data.render;
 
             // 2. Replace videos and images with new files
             document.getElementById('hero-video').src = data.video;
-            document.getElementById('hero-render').src = data.render;
+            
             document.getElementById('project-schema').src = data.schema;
             document.getElementById('project-possibilities').src = data.possibilities;
 
-            // Be sure to restart the video after changing the source
-            document.getElementById('hero-video').load();
-            document.getElementById('hero-video').play();
+            document.getElementById('shader-desc').innerHTML = data.shaderDesc;
+            document.getElementById('dist-desc').innerHTML = data.distDesc;
 
-            // 3. Toggle the style of the active menu button
+            // Обновление двух видеоплееров (в шапке и внизу страницы)
+            const topVideo = document.getElementById('hero-video');
+            if (topVideo) {
+                topVideo.src = data.video;
+                topVideo.load();
+                topVideo.play();
+            }
+
+            // Кнопки навигации
             document.querySelectorAll('.nav-card').forEach(card => card.classList.remove('active'));
-            event.target.classList.add('active');
-
-             // 4. 
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
+        
         };
     </script>
+
 </body>
+
+
     <!-- FOOTER TMG / GDPR) -->
 <footer style="background-color: #0c0c0c; border-top: 1px solid #222; width: 100vw; padding: 50px 20px; margin-top: 80px; box-sizing: border-box; font-family: sans-serif;">
     <div style="max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 30px;">
@@ -389,4 +401,3 @@
         
 </footer>
 </html>
-
