@@ -278,6 +278,7 @@
      
     <script>
        
+      
         const projectsData = {
             grass1: {
                 title: "Procedural Basic Grass",
@@ -285,8 +286,8 @@
                 video: "images/Animation_Wind_Windy_Grass_field.mp4",
                 render: "images/Final_Render_Windy_Grass_field.png",
                 schema: "images/Geometry_Nodes_Windy_Grass_field.png",
-                possibilities: "images/Possibilities_Windy_Grass_field.png"
-                shaderDesc: "The wind effect is created in the Shader Editor using a `Noise Texture`, which is moved along one of the axes using a `Value` node (via `#frame`) and shifts the coordinates and normals of the blades of grass.",
+                possibilities: "images/Possibilities_Windy_Grass_field.png",
+                shaderDesc: "The wind effect is created in the Shader Editor using a `Noise Texture`, which is moved along one of the axes using a `Value` node (via #frame) and shifts the coordinates and normals of the blades of grass.",
                 distDesc: "This is the \"lightest\" wind. It \"works instantly in Viewport\", doesn't require physics baking, and is ideal for huge fields (backgrounds).",
                 finalVideo: "images/Animation_Wind_Windy_Grass_field.mp4"
             },
@@ -296,51 +297,57 @@
                 video: "images/Animation_Wind_Art_Directable_Wind.mp4",
                 render: "images/Final_Render_Art_Directable_Wind.png",
                 schema: "images/Geometry_Nodes_Art_Directable_Wind.png",
-                possibilities: "images/Possibil_Art_Directable_Wind.png"
+                possibilities: "images/Possibil_Art_Directable_Wind.png",
                 shaderDesc: "The wind effect here is art-directable and interactively reacts to a custom sphere controller. It calculates bounding distance to bend blades dynamically.",
                 distDesc: "This setup provides heavy wind options, designed for high-fidelity shots and interactive close-ups where precise field control is required.",
                 finalVideo: "images/Animation_Wind_Art_Directable_Wind.mp4"
             }
-            
         };
 
-   function switchProject(projectId) {
-        const data = projectsData[projectId];
-        if (!data) return;
 
-        // 1. Меняем тексты
-        document.getElementById('project-title').innerText = data.title;
-        document.getElementById('project-desc').innerText = data.desc;
-        document.getElementById('shader-desc').innerText = data.shaderDesc;
-        document.getElementById('dist-desc').innerText = data.distDesc;
+        function switchProject(projectId) {
+                const data = projectsData[projectId];
+                if (!data) return;
 
-        // 2. Меняем картинки и схемы
-        document.getElementById('hero-render').src = data.render;
-        document.getElementById('project-schema').src = data.schema;
-        document.getElementById('project-possibilities').src = data.possibilities;
+                // 1. Меняем текстовые подписи и заголовки
+                document.getElementById('project-title').innerText = data.title;
+                document.getElementById('project-desc').innerText = data.desc;
+                document.getElementById('shader-desc').innerText = data.shaderDesc;
+                document.getElementById('dist-desc').innerText = data.distDesc;
 
-        // 3. Обновляем верхнее фоновое видео (вы уже это сделали!)
-        document.getElementById('hero-video').src = data.video;
-        document.getElementById('hero-video').load();
-        document.getElementById('hero-video').play();
+                // 2. Меняем статичные картинки и схемы нод
+                document.getElementById('hero-render').src = data.render;
+                document.getElementById('project-schema').src = data.schema;
+                document.getElementById('project-possibilities').src = data.possibilities;
 
-        // 4. Обновляем нижнее видео рендера (теперь оно точно найдет цель)
-        document.getElementById('final-video').src = data.finalVideo;
-        document.getElementById('final-video').load();
-        document.getElementById('final-video').play();
+                // 3. Обновляем верхнее фоновое видео (с проверкой на существование)
+                const heroVideo = document.getElementById('hero-video');
+                if (heroVideo) {
+                    heroVideo.src = data.video;
+                    heroVideo.load();
+                    heroVideo.play();
+                }
 
-       
-        // 5. Прямое переключение цвета кнопок меню по их ID
-        document.getElementById('btn-grass1').classList.remove('active');
-        document.getElementById('btn-grass2').classList.remove('active');
-        
-        if (projectId === 'grass1') {
-            document.getElementById('btn-grass1').classList.add('active');
-        } else if (projectId === 'grass2') {
-            document.getElementById('btn-grass2').classList.add('active');
-        }
-    }
+                // 4. Обновляем нижнее видео рендера (с проверкой на существование)
+                const finalVideo = document.getElementById('final-video');
+                if (finalVideo) {
+                    finalVideo.src = data.finalVideo;
+                    finalVideo.load();
+                    finalVideo.play();
+                }
+
+                // 5. Переключаем подсветку кнопок в меню карусели
+                document.getElementById('btn-grass1').classList.remove('active');
+                document.getElementById('btn-grass2').classList.remove('active');
+                
+                if (projectId === 'grass1') {
+                    document.getElementById('btn-grass1').classList.add('active');
+                } else if (projectId === 'grass2') {
+                    document.getElementById('btn-grass2').classList.add('active');
+                }
+            }
 </script>
+
 </body>
     <!-- FOOTER TMG / GDPR) -->
 <footer style="background-color: #0c0c0c; border-top: 1px solid #222; width: 100vw; padding: 50px 20px; margin-top: 80px; box-sizing: border-box; font-family: sans-serif;">
