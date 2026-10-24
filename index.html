@@ -277,7 +277,7 @@
         </div>
       
    <script>
-    // 1. База данных (уже проверенная вами)
+ 
     const projectsData = {
         grass1: {
             title: "Procedural Basic Grass",
@@ -303,7 +303,7 @@
         }
     };
 
-    // 2. Функция-переключатель (с добавленным Шагом 3)
+   
     function switchProject(projectId) {
         const data = projectsData[projectId];
         if (!data) return;
@@ -320,8 +320,8 @@
  
         
         // Обновление двух видеоплееров (в шапке и внизу страницы)
-        const topVideo = document.getElementById('hero-video');
-        if (topVideo) {
+        const topVideo = document.getElementById('hero-render');
+        if (top-render) {
             topVideo.src = data.video;
             topVideo.load();
             topVideo.play();
