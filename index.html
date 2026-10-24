@@ -316,22 +316,9 @@
         
         document.getElementById('shader-desc').innerHTML = data.shaderDesc;
         document.getElementById('dist-desc').innerHTML = data.distDesc;
-        
+        document.getElementById('hero-video').src = data.render;
 
-        // Обновление двух видеоплееров (в шапке и внизу страницы)
-        const topVideo = document.getElementById('hero-video');
-        if (topVideo) {
-            topVideo.src = data.video;
-            topVideo.load();
-            topVideo.play();
-        }
-
-        // Кнопки навигации
-        document.querySelectorAll('.nav-card').forEach(card => card.classList.remove('active'));
-        if (event && event.target) {
-            event.target.classList.add('active');
-        }
-    }
+       
 </script>
 </body>
     <!-- FOOTER TMG / GDPR) -->
