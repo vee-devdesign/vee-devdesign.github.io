@@ -246,9 +246,9 @@
                 <img id="project-schema" src="images/Geometry_Nodes_Windy_Grass_field.png" alt="Geometry Nodes Schema"><br>
                 <div style="flex: 1 1 300px; color: #666; font-size: 1; line-height: 1.6; text-align: left;border-left: 1px solid #222; padding-left: 20px;">
                     <strong style="color: #999; display: block; text-transform: uppercase; letter-spacing: 1px;"> </strong>
-                    The wind effect is created in the Shader Editor using a `Noise Texture`, <br>
-                    which is moved along one of the axes using a `Value` node (via `#frame`) <br>
-                    and shifts the coordinates and normals of the blades of grass.<br></p>
+                    <p id="shader-desc">The wind effect is created in the Shader Editor using a `Noise Texture`, <br>
+                                        which is moved along one of the axes using a `Value` node (via `#frame`) <br>
+                                        and shifts the coordinates and normals of the blades of grass.<br></p>
                  </div>
             </div>
         </div>
@@ -260,8 +260,8 @@
                 <img id="project-possibilities" src="images/Possibilities_Windy_Grass_field.png" alt="Possibilities Field"> <br>
                 <div style="flex: 1 1 300px; color: #666; font-size: 1; line-height: 1.6; text-align: left;border-left: 1px solid #222; padding-left: 20px;">
                     <strong style="color: #999; display: block; text-transform: uppercase; letter-spacing: 1px;"> </strong>
-                    This is the “lightest” wind. It “works instantly in Viewport“,<br>
-                    doesn't require physics baking, and is ideal for huge fields (backgrounds).<br>       
+                    <p id="dist-desc">This is the “lightest” wind. It “works instantly in Viewport“,<br>
+                                      doesn't require physics baking, and is ideal for huge fields (backgrounds).<br>       
                 </div>
             </div>
         </div>
@@ -306,6 +306,9 @@
                 render: "images/Final_Render_Windy_Grass_field.png",
                 schema: "images/Geometry_Nodes_Windy_Grass_field.png",
                 possibilities: "images/Possibilities_Windy_Grass_field.png"
+                shaderDesc: "The wind effect is created in the Shader Editor...",
+                distDesc: "This is the “lightest” wind...",
+                finalVideo: "images/Animation_Wind_Windy_Grass_field.mp4"
             },
             grass2: {
                 title: "Interactive Grass & Flowers",
@@ -314,6 +317,9 @@
                 render: "images/Final_Render_Art_Directable_Wind.png",
                 schema: "images/Geometry_Nodes_Art_Directable_Wind.png",
                 possibilities: "images/Possibil_Art_Directable_Wind.png"
+                shaderDesc: "The wind effect is created in the Shader Editor...",
+                distDesc: "This is the “lightest” wind...",
+                finalVideo: "images/Animation_Wind_Art_Directable_Wind.mp4"
             }
         };
 
@@ -338,6 +344,8 @@
             // 3. Toggle the style of the active menu button
             document.querySelectorAll('.nav-card').forEach(card => card.classList.remove('active'));
             event.target.classList.add('active');
+
+             // 4. 
         };
     </script>
 </body>
