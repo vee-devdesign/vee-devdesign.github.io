@@ -217,9 +217,11 @@
 <body>
   
     <nav class="portfolio-nav">
-        <div id="btn-grass1" class="nav-card active" onclick="switchProject('grass1')">🌾 Type 1: Basic Grass</div>
-        <div id="btn-grass2" class="nav-card" onclick="switchProject('grass2')">🪻 Type 2: Interactive Grass</div>
-    </nav>
+    <div id="btn-grass1" class="nav-card active" onclick="switchProject('grass1')">🌾 Type 1: Basic Grass</div>
+    <div id="btn-grass2" class="nav-card" onclick="switchProject('grass2')">🪻 Type 2: Interactive Grass</div>
+    <div id="btn-grass3" class="nav-card" onclick="switchProject('grass3')">🍃 Type 3: New Grass</div> <!-- Новая кнопка -->
+</nav>
+
 
 
     <!-- cinematic -->
@@ -298,6 +300,17 @@
                     shaderDesc: "The wind effect here is art-directable and interactively reacts to a custom sphere controller. It calculates bounding distance to bend blades dynamically.",
                     distDesc: "This setup provides heavy wind options, designed for high-fidelity shots and interactive close-ups where precise field control is required.",
                     finalVideo: "images/Animation_Wind_Art_Directable_Wind.mp4"
+                },
+                grass3: {
+                    title: "Procedural Ultra Grass",
+                    desc: "Description of your third amazing grass asset...",
+                    video: "images/Animation_Wind_Grass3.mp4",
+                    render: "images/Final_Render_Grass3.png",
+                    schema: "images/Geometry_Nodes_Grass3.png",
+                    possibilities: "images/Possibilities_Grass3.png",
+                    shaderDesc: "Shader logic for type 3...",
+                    distDesc: "Distribution logic for type 3...",
+                    finalVideo: "images/Animation_Wind_Grass3.mp4"
                 }
             };
 
