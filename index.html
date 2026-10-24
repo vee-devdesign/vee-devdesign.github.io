@@ -308,18 +308,14 @@
         const data = projectsData[projectId];
         if (!data) return;
 
-        // Базовые элементы шапки
         document.getElementById('project-title').innerText = data.title;
         document.getElementById('project-desc').innerText = data.desc;
         document.getElementById('hero-render').src = data.render;
-
-        // Элементы в блоке деталей
         document.getElementById('project-schema').src = data.schema;
         document.getElementById('project-possibilities').src = data.possibilities;
-
-        // --- ТОТ САМЫЙ ШАГ 3 (Обновление ваших новых подписей) ---
         document.getElementById('shader-desc').innerHTML = data.shaderDesc;
         document.getElementById('dist-desc').innerHTML = data.distDesc;
+        document.getElementById('hero-finalVideo').src = data.render;
 
         // Обновление двух видеоплееров (в шапке и внизу страницы)
         const topVideo = document.getElementById('hero-video');
