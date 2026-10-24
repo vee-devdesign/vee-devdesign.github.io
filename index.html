@@ -217,9 +217,10 @@
 <body>
   
     <nav class="portfolio-nav">
-        <div class="nav-card active" onclick="switchProject('grass1', this)">🌾 Type 1: Basic Grass</div>
-        <div class="nav-card" onclick="switchProject('grass2', this)">🪻 Type 2: Interactive Grass</div>
+        <div id="btn-grass1" class="nav-card active" onclick="switchProject('grass1')">🌾 Type 1: Basic Grass</div>
+        <div id="btn-grass2" class="nav-card" onclick="switchProject('grass2')">🪻 Type 2: Interactive Grass</div>
     </nav>
+
 
 
     <!-- cinematic -->
@@ -279,8 +280,7 @@
         </div>
      
     <script>
-       
-     const projectsData = {
+    const projectsData = {
         grass1: {
             title: "Procedural Basic Grass",
             desc: "Procedural distribution of blades of grass across a surface using an Instance on Points pipeline. Configured random variations in scale, tilt, and custom rotation vectors to achieve a photorealistic organic appearance.",
@@ -288,10 +288,10 @@
             render: "images/Final_Render_Windy_Grass_field.png",
             schema: "images/Geometry_Nodes_Windy_Grass_field.png",
             possibilities: "images/Possibilities_Windy_Grass_field.png",
-            shaderDesc: "The wind effect is created in the Shader Editor using a `Noise Texture`, which is moved along one of the axes using a `Value` node (via `#frame`) and shifts the coordinates and normals of the blades of grass.",
+            shaderDesc: "The wind effect is created in the Shader Editor using a `Noise Texture`, which is moved along one of the axes using a `Value` node (via #frame) and shifts the coordinates and normals of the blades of grass.",
             distDesc: "This is the \"lightest\" wind. It \"works instantly in Viewport\", doesn't require physics baking, and is ideal for huge fields (backgrounds).",
             finalVideo: "images/Animation_Wind_Windy_Grass_field.mp4"
-            },
+        },
         grass2: {
             title: "Interactive Grass & Flowers",
             desc: "Advanced vegetation scattering system with dynamic interaction logic. Features a custom proximity-based deformer using Geometry Proximity nodes, pushing grass blades away when an effector sphere passes through.",
@@ -302,58 +302,51 @@
             shaderDesc: "The wind effect here is art-directable and interactively reacts to a custom sphere controller. It calculates bounding distance to bend blades dynamically.",
             distDesc: "This setup provides heavy wind options, designed for high-fidelity shots and interactive close-ups where precise field control is required.",
             finalVideo: "images/Animation_Wind_Art_Directable_Wind.mp4"
-            },
+        }
+    };
 
-        function switchProject(projectId) {
-            const data = projectsData[projectId];
-            if (!data) return;
+    function switchProject(projectId) {
+        const data = projectsData[projectId];
+        if (!data) return;
 
-            // 1. Editing Texts
-            document.getElementById('project-title').innerText = data.title;
-            document.getElementById('project-desc').innerText = data.desc;
+        // 1. Меняем тексты
+        document.getElementById('project-title').innerText = data.title;
+        document.getElementById('project-desc').innerText = data.desc;
+        document.getElementById('shader-desc').innerText = data.shaderDesc;
+        document.getElementById('dist-desc').innerText = data.distDesc;
 
-            // 2. Replace videos and images with new files
-            // document.getElementById('hero-video').src = data.video;
-            document.getElementById('hero-render').src = data.render;
-            document.getElementById('project-schema').src = data.schema;
-            document.getElementById('project-possibilities').src = data.possibilities;
+        // 2. Меняем картинки и схемы
+        document.getElementById('hero-render').src = data.render;
+        document.getElementById('project-schema').src = data.schema;
+        document.getElementById('project-possibilities').src = data.possibilities;
 
-            // Be sure to restart the video after changing the source
-            // document.getElementById('hero-video').load();
-            // document.getElementById('hero-video').play();
+        // 3. Обновляем верхнее видео
+        const heroVideo = document.getElementById('hero-video');
+        if (heroVideo) {
+            heroVideo.src = data.video;
+            heroVideo.load();
+            heroVideo.play();
+        }
 
-            // 3. Toggle the style of the active menu button
-            // document.querySelectorAll('.nav-card').forEach(card => card.classList.remove('active'));
-            // event.target.classList.add('active');
- 
-            // 4. Updating Text Captions BELOW Node Diagrams
-            document.getElementById('shader-desc').innerHTML = data.shaderDesc;
-            document.getElementById('dist-desc').innerHTML = data.distDesc;
+        // 4. Обновляем нижнее видео рендера
+        const finalVideo = document.getElementById('final-video');
+        if (finalVideo) {
+            finalVideo.src = data.finalVideo;
+            finalVideo.load();
+            finalVideo.play();
+        }
 
-            // Обновление двух видеоплееров (в шапке и внизу страницы)
-            const topVideo = document.getElementById('hero-video');
-            if (topVideo) {
-              topVideo.src = data.video;
-              topVideo.load();
-              topVideo.play();
-            }
-            // 5. Перезапуск нижнего видео рендера
-            const finalVideo = document.getElementById('final-video');
-            if (finalVideo) {
-                finalVideo.src = data.finalVideo;
-                finalVideo.load();
-                finalVideo.play();
-            }
-
-
-        // Кнопки навигации
-        document.querySelectorAll('.nav-card').forEach(card => card.classList.remove('active'));
-        if (event && event.target) {
-            event.target.classList.add('active');
+        // 5. Прямое переключение цвета кнопок меню по их ID
+        document.getElementById('btn-grass1').classList.remove('active');
+        document.getElementById('btn-grass2').classList.remove('active');
+        
+        if (projectId === 'grass1') {
+            document.getElementById('btn-grass1').classList.add('active');
+        } else if (projectId === 'grass2') {
+            document.getElementById('btn-grass2').classList.add('active');
         }
     }
-        };
-    </script>
+</script>
 
 </body>
 
