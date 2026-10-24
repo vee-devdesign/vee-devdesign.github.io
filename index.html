@@ -305,44 +305,44 @@
         };
 
         function switchProject(projectId) {
-            const data = projectsData[projectId];
-            if (!data) return;
+    const data = projectsData[projectId];
+    if (!data) return;
 
-            // 1. Editing Texts
-            document.getElementById('project-title').innerText = data.title;
-            document.getElementById('project-desc').innerText = data.desc;
-            document.getElementById('hero-render').src = data.render;
-            document.getElementById('project-schema').src = data.schema;
-            document.getElementById('project-possibilities').src = data.possibilities;
-            
-            // 2. Replace videos with new files
-            document.getElementById('hero-video').src = data.video;
-           
-            // 3. Обновляем верхнее фоновое видео (вы уже это сделали!)
-            document.getElementById('hero-video').src = data.video;
-            document.getElementById('hero-video').load();
-            document.getElementById('hero-video').play();
+    // 1. Editing Texts (Заголовки и главные описания)
+    document.getElementById('project-title').innerText = data.title;
+    document.getElementById('project-desc').innerText = data.desc;
 
-            // 4. Обновляем нижнее видео рендера (теперь оно точно найдет цель)
-            document.getElementById('final-video').src = data.finalVideo;
-            document.getElementById('final-video').load();
-            document.getElementById('final-video').play();
+    // 2. Replace videos and images with new files (Картинки и схемы)
+    document.getElementById('hero-render').src = data.render;
+    document.getElementById('project-schema').src = data.schema;
+    document.getElementById('project-possibilities').src = data.possibilities;
 
-            // Обновление двух видеоплееров (в шапке и внизу страницы)
-            const topVideo = document.getElementById('final-video');
-            if (topVideo) {
-                topVideo.src = data.video;
-                topVideo.load();
-                topVideo.play();
-            }
+    // 3. Обновление текстовых подписей ПОД схемами нод (Тот самый шаг 3!)
+    document.getElementById('shader-desc').innerText = data.shaderDesc;
+    document.getElementById('dist-desc').innerText = data.distDesc;
 
-            // Кнопки навигации
-            document.querySelectorAll('.nav-card').forEach(card => card.classList.remove('active'));
-            if (event && event.target) {
-                event.target.classList.add('active');
-            }
+    // 4. Перезапуск верхнего фонового видео
+    const heroVideo = document.getElementById('hero-video');
+    if (heroVideo) {
+        heroVideo.src = data.video;
+        heroVideo.load();
+        heroVideo.play();
     }
-        };
+
+   // 5. Перезапуск нижнего видео рендера
+    const finalVideo = document.getElementById('final-video');
+    if (finalVideo) {
+        finalVideo.src = data.finalVideo;
+        finalVideo.load();
+        finalVideo.play();
+    }
+
+    // 6. Toggle the style of the active menu button
+    document.querySelectorAll('.nav-card').forEach(card => card.classList.remove('active'));
+    if (event && event.target) {
+        event.target.classList.add('active');
+    }
+}
     </script>
 </body>
     <!-- FOOTER TMG / GDPR) -->
