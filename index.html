@@ -262,12 +262,11 @@
                 <div style="flex: 1 1 300px; color: #666; font-size: 1; line-height: 1.6; text-align: left;border-left: 1px solid #222; padding-left: 20px;">
                     <strong style="color: #999; display: block; text-transform: uppercase; letter-spacing: 1px;"> </strong>
                     <p id="dist-desc">This is the “lightest” wind. It “works instantly in Viewport“,<br>
-                    doesn't require physics baking, and is ideal for huge fields (backgrounds).<br></p>       
+                    doesn't require physics baking, and is ideal for huge fields (backgrounds).<br></p>      
                 </div>
             </div>
         </div>
         
-       
         <div class="media-box">
             <span>Animation (Wind Simulation)</span>
             <div class="media-content">
@@ -276,83 +275,77 @@
         </div>
 
      
-    <script>
-        const projectsData = {
-            grass1: {
-                title: "Procedural Basic Grass",
-                desc: "Procedural distribution of blades of grass across a surface using an Instance on Points pipeline. Configured random variations in scale, tilt, and custom rotation vectors to achieve a photorealistic organic appearance.",
-                video: "images/Animation_Wind_Windy_Grass_field.mp4",
-                render: "images/Final_Render_Windy_Grass_field.png",
-                schema: "images/Geometry_Nodes_Windy_Grass_field.png",
-                possibilities: "images/Possibilities_Windy_Grass_field.png",
-                shaderDesc: "The wind effect is created in the Shader Editor using a `Noise Texture`, which is moved along one of the axes using a `Value` node (via #frame) and shifts the coordinates and normals of the blades of grass.",
-                distDesc: "This is the \"lightest\" wind. It \"works instantly in Viewport\", doesn't require physics baking, and is ideal for huge fields (backgrounds).",
-                finalVideo: "images/Animation_Wind_Windy_Grass_field.mp4"
-            },
-            grass2: {
-                title: "Interactive Grass & Flowers",
-                desc: "Advanced vegetation scattering system with dynamic interaction logic. Features a custom proximity-based deformer using Geometry Proximity nodes, pushing grass blades away when an effector sphere passes through.",
-                video: "images/Animation_Wind_Art_Directable_Wind.mp4",
-                render: "images/Final_Render_Art_Directable_Wind.png",
-                schema: "images/Geometry_Nodes_Art_Directable_Wind.png",
-                possibilities: "images/Possibil_Art_Directable_Wind.png",
-                shaderDesc: "The wind effect here is art-directable and interactively reacts to a custom sphere controller. It calculates bounding distance to bend blades dynamically.",
-                distDesc: "This setup provides heavy wind options, designed for high-fidelity shots and interactive close-ups where precise field control is required.",
-                finalVideo: "images/Animation_Wind_Art_Directable_Wind.mp4"
+        <script>
+            const projectsData = {
+                grass1: {
+                    title: "Procedural Basic Grass",
+                    desc: "Procedural distribution of blades of grass across a surface using an Instance on Points pipeline. Configured random variations in scale, tilt, and custom rotation vectors to achieve a photorealistic organic appearance.",
+                    video: "images/Animation_Wind_Windy_Grass_field.mp4",
+                    render: "images/Final_Render_Windy_Grass_field.png",
+                    schema: "images/Geometry_Nodes_Windy_Grass_field.png",
+                    possibilities: "images/Possibilities_Windy_Grass_field.png",
+                    shaderDesc: "The wind effect is created in the Shader Editor using a `Noise Texture`, which is moved along one of the axes using a `Value` node (via #frame) and shifts the coordinates and normals of the blades of grass.",
+                    distDesc: "This is the \"lightest\" wind. It \"works instantly in Viewport\", doesn't require physics baking, and is ideal for huge fields (backgrounds).",
+                    finalVideo: "images/Animation_Wind_Windy_Grass_field.mp4"
+                },
+                grass2: {
+                    title: "Interactive Grass & Flowers",
+                    desc: "Advanced vegetation scattering system with dynamic interaction logic. Features a custom proximity-based deformer using Geometry Proximity nodes, pushing grass blades away when an effector sphere passes through.",
+                    video: "images/Animation_Wind_Art_Directable_Wind.mp4",
+                    render: "images/Final_Render_Art_Directable_Wind.png",
+                    schema: "images/Geometry_Nodes_Art_Directable_Wind.png",
+                    possibilities: "images/Possibil_Art_Directable_Wind.png",
+                    shaderDesc: "The wind effect here is art-directable and interactively reacts to a custom sphere controller. It calculates bounding distance to bend blades dynamically.",
+                    distDesc: "This setup provides heavy wind options, designed for high-fidelity shots and interactive close-ups where precise field control is required.",
+                    finalVideo: "images/Animation_Wind_Art_Directable_Wind.mp4"
+                }
+            };
+
+            function switchProject(projectId) {
+            const data = projectsData[projectId];
+            if (!data) return;
+
+            if(document.getElementById('project-title')) document.getElementById('project-title').innerText = data.title;
+            if(document.getElementById('project-desc')) document.getElementById('project-desc').innerText = data.desc;
+            if(document.getElementById('shader-desc')) document.getElementById('shader-desc').innerText = data.shaderDesc;
+            if(document.getElementById('dist-desc')) document.getElementById('dist-desc').innerText = data.distDesc;
+
+            if(document.getElementById('hero-render')) document.getElementById('hero-render').src = data.render;
+            if(document.getElementById('project-schema')) document.getElementById('project-schema').src = data.schema;
+            if(document.getElementById('project-possibilities')) document.getElementById('project-possibilities').src = data.possibilities;
+
+            const heroVideo = document.getElementById('hero-video');
+            if (heroVideo) {
+                heroVideo.src = data.video;
+                heroVideo.load();
+                heroVideo.play();
             }
-        };
 
-        function switchProject(projectId) {
-        const data = projectsData[projectId];
-        if (!data) return;
+            const finalVideo = document.getElementById('final-video');
+            if (finalVideo) {
+                finalVideo.src = data.finalVideo;
+                finalVideo.load();
+                finalVideo.play();
+            }
 
-        // 1. Меняем текстовые подписи и заголовки
-        if(document.getElementById('project-title')) document.getElementById('project-title').innerText = data.title;
-        if(document.getElementById('project-desc')) document.getElementById('project-desc').innerText = data.desc;
-        if(document.getElementById('shader-desc')) document.getElementById('shader-desc').innerText = data.shaderDesc;
-        if(document.getElementById('dist-desc')) document.getElementById('dist-desc').innerText = data.distDesc;
-
-        // 2. Меняем статичные картинки и схемы нод
-        if(document.getElementById('hero-render')) document.getElementById('hero-render').src = data.render;
-        if(document.getElementById('project-schema')) document.getElementById('project-schema').src = data.schema;
-        if(document.getElementById('project-possibilities')) document.getElementById('project-possibilities').src = data.possibilities;
-
-        // 3. Обновляем верхнее фоновое видео
-        const heroVideo = document.getElementById('hero-video');
-        if (heroVideo) {
-            heroVideo.src = data.video;
-            heroVideo.load();
-            heroVideo.play();
-        }
-
-        // 4. Обновляем нижнее видео рендера
-        const finalVideo = document.getElementById('final-video');
-        if (finalVideo) {
-            finalVideo.src = data.finalVideo;
-            finalVideo.load();
-            finalVideo.play();
-        }
-
-                // 5. Переключаем подсветку кнопок в меню по их жестким ID
-        const btn1 = document.getElementById('btn-grass1');
-        const btn2 = document.getElementById('btn-grass2');
-        
-        if (btn1 && btn2) {
-            btn1.classList.remove('active');
-            btn2.classList.remove('active');
+            const btn1 = document.getElementById('btn-grass1');
+            const btn2 = document.getElementById('btn-grass2');
             
-            if (projectId === 'grass1') {
-                btn1.classList.add('active'); // <-- ДОБАВИЛИ classList.
-            } else if (projectId === 'grass2') {
-                btn2.classList.add('active'); // <-- ДОБАВИЛИ classList.
+            if (btn1 && btn2) {
+                btn1.classList.remove('active');
+                btn2.classList.remove('active');
+                
+                if (projectId === 'grass1') {
+                    btn1.classList.add('active'); 
+                } else if (projectId === 'grass2') {
+                    btn2.classList.add('active'); 
+                }
             }
-        }
 
-    }
-</script>
+            }
+        </script>
 
 </body>
-    <!-- FOOTER TMG / GDPR) -->
 <footer style="background-color: #0c0c0c; border-top: 1px solid #222; width: 100vw; padding: 50px 20px; margin-top: 80px; box-sizing: border-box; font-family: sans-serif;">
     <div style="max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 30px;">
             
