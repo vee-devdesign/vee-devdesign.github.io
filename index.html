@@ -7,7 +7,406 @@
     <style>
         :root {
             --bg-color: #0c0c0c;
+            --card-bg: #141414;<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D & Procedural Artist Portfolio</title>
+    <style>
+        :root {
+            --bg-color: #0c0c0c;
             --card-bg: #141414;
+            --text-color: #e0e0e0;
+            --accent-color: #4caf50;
+            --text-muted: #888888;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+        .hero-header {
+            position: relative;
+            width: 100vw;
+            height: 75vh; /* Занимает 75% высоты экрана */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            overflow: hidden;
+            border-bottom: 1px solid #222;
+        }
+        .hero-bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            filter: brightness(0.9) blur(2px);
+            transition: opacity 0.5s ease;
+        }
+        .hero-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to top, var(--bg-color), transparent);
+            z-index: 2;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 1100px;
+            width: 100%;
+            padding: 0 40px 40px 40px;
+            box-sizing: border-box;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        @media (max-width: 850px) {
+            .hero-header { height: auto; padding-top: 140px; }
+            .hero-content { grid-template-columns: 1fr; text-align: center; }
+        }
+        .hero-text h1 {
+            color: #fff;
+            font-size: 2.5rem;
+            margin: 0 0 10px 0;
+            transition: all 0.3s ease;
+        }
+        .hero-text .project-type {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+        }
+        .hero-text p {
+            color: #ccc;
+            line-height: 1.6;
+            font-size: 1rem;
+            margin: 0;
+        }
+        .hero-featured-render {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #333;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+        .hero-featured-render img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+        .portfolio-nav {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+            background: rgba(10, 10, 10, 0.6);
+            padding: 8px;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .nav-card {
+            background: transparent;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: 1px solid transparent;
+        }
+        .nav-card:hover, .nav-card.active {
+            color: #fff;
+            background: var(--accent-color);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+        .details-container {
+            max-width: 1100px;
+            width: 100%;
+            padding: 60px 20px;
+            box-sizing: border-box;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .full-width-box {
+            background: var(--card-bg);
+            border: 1px solid #222;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 50px;
+        }
+        .box-header {
+            background: #1a1a1a;
+            padding: 12px 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            border-bottom: 1px solid #222;
+        }
+        .box-content img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+            background: #080808;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+        @media (max-width: 750px) { .features-grid { grid-template-columns: 1fr; } }
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid #222;
+            padding: 25px;
+            border-radius: 12px;
+            transition: border-color 0.3s ease;
+        }
+        .feature-card:hover {
+            border-color: #333;
+        }
+        .feature-card h3 {
+            margin: 0 0 10px 0;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .feature-card p {
+            margin: 0;
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-size: 0.75rem;
+        }
+        .badge {
+            background: #192519;
+            color: var(--accent-color);
+            font-size: 0.55rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+  
+    <nav class="portfolio-nav">
+        <div class="nav-card active" onclick="switchProject('grass1')">🌾 Type 1: Basic Grass</div>
+        <div class="nav-card" onclick="switchProject('grass2')">🪻 Type 2: Interactive Grass</div>
+    </nav>
+
+    <!-- cinematic -->
+    <div class="hero-header">
+        <video id="hero-video" class="hero-bg-video" src="images/Animation_Wind_Windy_Grass_field.mp4" autoplay loop muted playsinline></video>
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="project-type">Geometry Nodes Asset</div>
+                <h1 id="project-title">Procedural Basic Grass</h1>
+                <p id="project-desc">Procedural distribution of blades of grass across a surface using an Instance on Points pipeline. Configured random variations in scale, tilt, and custom rotation vectors to achieve a photorealistic organic appearance.</p>
+            </div>
+            <div class="hero-featured-render">
+                <img id="hero-render" src="images/Final_Render_Windy_Grass_field.png" alt="Featured Render">
+            </div>
+        </div>
+    </div>
+    <div class="details-container">
+
+        <div class="section-title">Node Logic</div>
+        <div class="full-width-box">
+            <div class="box-header" id="schema-header">BLENDER GEOMETRY NODES SCHEMA</div>
+            <div class="box-content">
+                <img id="project-schema" src="images/Geometry_Nodes_Windy_Grass_field.png" alt="Geometry Nodes Schema"><br>
+                <div style="flex: 1 1 300px; color: #666; font-size: 1; line-height: 1.6; text-align: left;border-left: 1px solid #222; padding-left: 20px;">
+                    <strong style="color: #999; display: block; text-transform: uppercase; letter-spacing: 1px;"> </strong>
+                    <p id="shader-desc">The wind effect is created in the Shader Editor using a `Noise Texture`, <br>
+                                        which is moved along one of the axes using a `Value` node (via `#frame`) <br>
+                                        and shifts the coordinates and normals of the blades of grass.<br></p>
+                 </div>
+            </div>
+        </div>
+       
+        <div class="section-title">Distribution Options</div>
+        <div class="full-width-box">
+            <div class="box-header" id="possibilities-header">DISTRIBUTION & FIELD POSSIBILITIES</div>
+            <div class="box-content">
+                <img id="project-possibilities" src="images/Possibilities_Windy_Grass_field.png" alt="Possibilities Field"> <br>
+                <div style="flex: 1 1 300px; color: #666; font-size: 1; line-height: 1.6; text-align: left;border-left: 1px solid #222; padding-left: 20px;">
+                    <strong style="color: #999; display: block; text-transform: uppercase; letter-spacing: 1px;"> </strong>
+                    <p id="dist-desc">This is the “lightest” wind. It “works instantly in Viewport“,<br>
+                                      doesn't require physics baking, and is ideal for huge fields (backgrounds).<br>       
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-title">Final render</div>
+        <div class="full-width-box">
+            <div class="hero-header">
+                <video id="hero-video" src="images/Animation_Wind_Windy_Grass_field.mp4" autoplay loop muted playsinline></video>
+                
+                
+            </div>
+        </div>
+        </div>
+      <!-- Capabilities (Scalability) 
+        <div class="section-title">Asset Modernization Potential
+       
+            <div class="feature-card">
+                <h3>Dynamic Blading <span class="badge">Logic</span></h3>
+                <p>The ability to connect texture maps (Weight Paint) to procedurally control grass density without changing the geometry of the base mesh.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Interactive Physics <span class="badge">Geonodes</span></h3>
+                <p>Integrating the Geometry Proximity node to create a dynamic trail (grass compression) behind any moving animated object or character in the scene</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Variation in Coloration <span class="badge">Shading</span></h3>
+                <p>Passing a random instance index (Random Per Island) to the material shader to randomize the shades of green, dryness, and color of the grass tips.</p>
+            </div>
+
+        </div> 
+          -->  
+                                <!-- Changing projects -->
+    <script>
+       
+        const projectsData = {
+            grass1: {
+                title: "Procedural Basic Grass",
+                desc: "Procedural distribution of blades of grass across a surface using an Instance on Points pipeline. Configured random variations in scale, tilt, and custom rotation vectors to achieve a photorealistic organic appearance.",
+                video: "images/Animation_Wind_Windy_Grass_field.mp4",
+                render: "images/Final_Render_Windy_Grass_field.png",
+                schema: "images/Geometry_Nodes_Windy_Grass_field.png",
+                possibilities: "images/Possibilities_Windy_Grass_field.png",
+                shaderDesc: "The wind effect is created in the Shader Editor using a `Noise Texture`, which is moved along one of the axes using a `Value` node (via `#frame`) and shifts the coordinates and normals of the blades of grass.",
+                distDesc: "This is the \"lightest\" wind. It \"works instantly in Viewport\", doesn't require physics baking, and is ideal for huge fields (backgrounds).",
+                finalVideo: "images/Animation_Wind_Windy_Grass_field.mp4"
+            },
+            grass2: {
+                title: "Interactive Grass & Flowers",
+                desc: "Advanced vegetation scattering system with dynamic interaction logic. Features a custom proximity-based deformer using Geometry Proximity nodes, pushing grass blades away when an effector sphere passes through.",
+                video: "images/Animation_Wind_Art_Directable_Wind.mp4",
+                render: "images/Final_Render_Art_Directable_Wind.png",
+                schema: "images/Geometry_Nodes_Art_Directable_Wind.png",
+                possibilities: "images/Possibil_Art_Directable_Wind.png",
+                shaderDesc: "The wind effect here is art-directable and interactively reacts to a custom sphere controller. It calculates bounding distance to bend blades dynamically.",
+                distDesc: "This setup provides heavy wind options, designed for high-fidelity shots and interactive close-ups where precise field control is required.",
+                finalVideo: "images/Animation_Wind_Art_Directable_Wind.mp4"
+            }
+        };
+
+        // 2. Функция-переключатель (с добавленным Шагом 3)
+    function switchProject(projectId) {
+        const data = projectsData[projectId];
+        if (!data) return;
+
+        // Базовые элементы шапки
+        document.getElementById('project-title').innerText = data.title;
+        document.getElementById('project-desc').innerText = data.desc;
+        document.getElementById('hero-render').src = data.render;
+
+        // Элементы в блоке деталей
+        document.getElementById('hero-video').src = data.video;
+        document.getElementById('project-schema').src = data.schema;
+        document.getElementById('project-possibilities').src = data.possibilities;
+
+        // --- ТОТ САМЫЙ ШАГ 3 (Обновление ваших новых подписей) ---
+        document.getElementById('shader-desc').innerHTML = data.shaderDesc;
+        document.getElementById('dist-desc').innerHTML = data.distDesc;
+
+        // Обновление двух видеоплееров (в шапке и внизу страницы)
+        const topVideo = document.getElementById('hero-video');
+        if (topVideo) {
+            topVideo.src = data.video;
+            topVideo.load();
+            topVideo.play();
+        }
+
+        // Кнопки навигации
+        document.querySelectorAll('.nav-card').forEach(card => card.classList.remove('active'));
+        if (event && event.target) {
+            event.target.classList.add('active');
+        }
+    }
+</script>
+</body>
+    <!-- FOOTER TMG / GDPR) -->
+<footer style="background-color: #0c0c0c; border-top: 1px solid #222; width: 100vw; padding: 50px 20px; margin-top: 80px; box-sizing: border-box; font-family: sans-serif;">
+    <div style="max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 30px;">
+            
+        <div style="width: 100%; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 40px;">
+                
+            <!-- Impressum -->
+            <div style="flex: 1 1 300px; color: #666; font-size: 0.85rem; line-height: 1.6; text-align: left;border-left: 1px solid #222; padding-left: 20px;">
+                <strong style="color: #999; display: block; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Impressum</strong>
+                Angaben gemäß § 5 TMG:<br>
+                Victoriia Yefremenko<br>
+                Bahnhofstrasse 3A<br>
+                67806 Rockenhausen, Germany<br>
+                Kontakt:<span style="color:#999; font-size: 0.82rem; line-height: 1.6;"> vee.dev.design@gmail.com</span><br>
+            </div>
+        
+
+            <!-- Datenschutz -->
+            <div style="flex: 2 1 450px; color: #666; font-size: 0.82rem; line-height: 1.6; text-align: left; border-left: 1px solid #222; padding-left: 20px;">
+                <strong style="color: #999; display: block; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Datenschutzerklärung</strong>
+                Diese Webseite ist eine rein private, nicht-kommerzielle <br>
+                Portfolio-Seite (gemäß § 18 MStV). Es werden keine personenbezogenen<br>
+                Daten erhoben, keine Cookies gesetzt und keine Tracking-Tools<br>
+                (wie Google Analytics) verwendet. The site is hosted via GitHub Pages.<br>
+                When you access the site, GitHub’s servers may automatically record<br>
+                standard log files (IP address), which is technically necessary<br>
+                for the site to function. The author’s personal data is protected<br>
+                in accordance with DSGVO.
+            </div>
+
+            <!-- Copyright -->
+            <div style="width: 100%; height: 1px; background-color: #222; margin-top: 10px;"></div>
+            <div style="color: #444; font-size: 0.75rem;">
+                &copy; 2026 vee-devdesign. All rights reserved.
+            </div>
+        </div>
+    </div>    
+        
+</footer>
+</html>
             --text-color: #e0e0e0;
             --accent-color: #4caf50;
             --text-muted: #888888;
