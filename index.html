@@ -333,7 +333,7 @@
             finalVideo.play();
         }
 
-        // 5. Переключаем подсветку кнопок в меню по их жестким ID
+                // 5. Переключаем подсветку кнопок в меню по их жестким ID
         const btn1 = document.getElementById('btn-grass1');
         const btn2 = document.getElementById('btn-grass2');
         
@@ -342,11 +342,12 @@
             btn2.classList.remove('active');
             
             if (projectId === 'grass1') {
-                btn1.classList.add('active');
+                btn1.classList.add('active'); // <-- ДОБАВИЛИ classList.
             } else if (projectId === 'grass2') {
-                btn2.classList.add('active');
+                btn2.classList.add('active'); // <-- ДОБАВИЛИ classList.
             }
         }
+
     }
 </script>
 
